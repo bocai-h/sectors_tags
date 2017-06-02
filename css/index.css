@@ -1,9 +1,16 @@
-.sectors,.sectors_tags,.selected_tags{
+.sectors,.selected_tags{
     border-bottom: 1px solid #f2f2f2; 
     padding: 13px 5px;
 }
+span.filter-title-tag{
+  display: block;
+  margin: 20px 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+}
 .filter-title{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: #669;
     display: block;

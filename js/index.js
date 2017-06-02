@@ -11,6 +11,30 @@ var sectors_tags_data = {
           {
           "tag_id": "2",
           "tag_name": "IT基础设施"
+          },
+          {
+          "tag_id": "71",
+          "tag_name": "IT基础设施4"
+          },
+          {
+          "tag_id": "72",
+          "tag_name": "IT基础设施5"
+          },
+          {
+          "tag_id": "79",
+          "tag_name": "IT基础设施79"
+          },
+          {
+          "tag_id": "68",
+          "tag_name": "IT基础设施68"
+          },
+          {
+          "tag_id": "64",
+          "tag_name": "IT基础设施64"
+          },
+          {
+          "tag_id": "66",
+          "tag_name": "IT基础设施66"
           }
         ]
       },
@@ -27,6 +51,20 @@ var sectors_tags_data = {
            "tag_name": "体育用品及装备"
          }
        ]
+      },
+      {
+       "sector_id": "3",
+       "sector_name": "体育运动2",
+       "sector_tags": [
+         {
+           "tag_id": "7",
+           "tag_name": "体育媒体及社区2"
+         },
+         {
+           "tag_id": "90",
+           "tag_name": "体育用品及装备6"
+         }
+       ]
       }
 	]
 }
@@ -38,11 +76,11 @@ var SectorsTags = {
        for(var i = 0; i < this.data_source.length; i++){
        	  var sector = this.data_source[i];
        	  var sector_item = "<span class='filter-li'><span id='sector_id_"+ sector["sector_id"]+ "' class='sector'>" + sector["sector_name"] + "</span></span>";
-       	  $(".sectors .content").append(sector_item);
+       	  $(".sectors .sectors_content").append(sector_item);
 
           // 初始化tags
           var tag_div = "<div id='tags_div_" + sector["sector_id"] + "' class='hide tags_div'></div>";
-       	  $(".sectors_tags .content").append(tag_div);
+       	  $(".sectors_tags .tags_content").append(tag_div);
 
        	  var sector_tags = sector["sector_tags"];
        	  for(var j = 0; j <  sector_tags.length; j++){

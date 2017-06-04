@@ -68,18 +68,18 @@ var SectorsTags = {
 		var self = this;
 		var sector_flag = self.setting.sector_flag;
     $("span.filter-li span.sector").on("click",function(){
-        if(sector_flag == "single"){
-
-				}else{
-					if(!$(this).hasClass("selected")){
-	           $(this).addClass("selected");
-	           $(this).after("<span class='delete-icon'></span>")
-	           // 插入选中标签显示栏
-	           var selected_tag = "<span class='selected-tag' id='tag_" + $(this).attr("id") + "'><span class='tag tag-content'>" + $(this).html() +
-	                               "</span><span class='tag cancel-icon'>&times;</span></span>";
-	           $(".selected_tags .content").append(selected_tag);
-	         };
-				};
+				if(!$(this).hasClass("selected")){
+					if(sector_flag == "single"){
+							// 取消所有选中的sector
+		           $("span.filter-li span.sector.selected").next().trigger("click");
+					}
+					 $(this).addClass("selected");
+					 $(this).after("<span class='delete-icon'></span>")
+					 // 插入选中标签显示栏
+					 var selected_tag = "<span class='selected-tag' id='tag_" + $(this).attr("id") + "'><span class='tag tag-content'>" + $(this).html() +
+															 "</span><span class='tag cancel-icon'>&times;</span></span>";
+					 $(".selected_tags .content").append(selected_tag);
+				 };
 				// 显示相应的tags
 				$(".tags_div").addClass("hide");
 				var tags_div_id = "tags_div_" + $(this).attr("id").replace("sector_id_","");
@@ -127,9 +127,15 @@ var SectorsTags = {
 								break;
 						 }
 					 };
-					//  最后一个选中的sector对应的tag_div
-					var active_tags_div_id = "tags_div_" + $("span.filter-li span.sector.selected").last().attr("id").replace("sector_id_","");
-          $("#" + active_tags_div_id).removeClass("hide");
+					//  最后一个选中的sector对应的tag_div 注意没有一个选中的情况
+					var last_selected_sector_id = $("span.filter-li span.sector.selected").last().attr("id");
+					if((typeof last_selected_sector_id) == "string"){
+						var active_tags_div_id = "tags_div_" + last_selected_sector_id.replace("sector_id_","");
+						$("#" + active_tags_div_id).removeClass("hide");
+					}else{
+						// 没有一个选中就全部隐藏
+						$(".tags_div").addClass("hide");
+					}
 				}
 				$(this).remove();
 		 });
@@ -147,6 +153,7 @@ $(document).ready(function(){
 		"data_source": sectors_tags_data["result"],
 		"init_sectors": sector_ids,
 		"init_sector_tags": sector_tag_ids,
+		"sector_flag": "single"
 	}
 	SectorsTags.init(setting);
 });

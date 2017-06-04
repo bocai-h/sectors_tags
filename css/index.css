@@ -1,5 +1,5 @@
 .sectors,.selected_tags{
-    border-bottom: 1px solid #f2f2f2; 
+    border-bottom: 1px solid #f2f2f2;
     padding: 13px 5px;
 }
 span.filter-title-tag{
@@ -27,6 +27,7 @@ span.filter-title-tag{
 }
 span.filter-li:hover{
    border: 1px solid red;
+   cursor: pointer;
 }
 span.selected{
 	color: red;
@@ -46,7 +47,6 @@ span.tag{
     padding-left: 5px;
     padding-right: 5px;
     text-align: center;
-    cursor: pointer;
     color: #fff;
 }
 span.tag-content{
@@ -63,4 +63,5 @@ span.cancel-icon{
     margin-left: -5px;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
+    cursor: pointer;
 }

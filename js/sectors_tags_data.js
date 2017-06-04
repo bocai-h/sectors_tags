@@ -58,9 +58,12 @@ var sectors_tags_data = {
         },
         {
           "tag_id": "90",
-          "tag_name": "体育用品及装备6"
+          "tag_name": "体育用品及装备90"
         }
       ]
     }
   ]
-}
+};
+// 编辑页面已经选中的
+var sector_ids = [1,2];
+var sector_tag_ids = [];

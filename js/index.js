@@ -1,78 +1,9 @@
-var sectors_tags_data = {
-	"result": [
-      {
-        "sector_id": "1",
-        "sector_name": "企业服务",
-        "sector_tags": [
-          {
-           "tag_id": "1",
-           "tag_name": "B2D开发者服务"
-          },
-          {
-          "tag_id": "2",
-          "tag_name": "IT基础设施"
-          },
-          {
-          "tag_id": "71",
-          "tag_name": "IT基础设施4"
-          },
-          {
-          "tag_id": "72",
-          "tag_name": "IT基础设施5"
-          },
-          {
-          "tag_id": "79",
-          "tag_name": "IT基础设施79"
-          },
-          {
-          "tag_id": "68",
-          "tag_name": "IT基础设施68"
-          },
-          {
-          "tag_id": "64",
-          "tag_name": "IT基础设施64"
-          },
-          {
-          "tag_id": "66",
-          "tag_name": "IT基础设施66"
-          }
-        ]
-      },
-      {
-       "sector_id": "2",
-       "sector_name": "体育运动",
-       "sector_tags": [
-         {
-           "tag_id": "3",
-           "tag_name": "体育媒体及社区"
-         },
-         {
-           "tag_id": "4",
-           "tag_name": "体育用品及装备"
-         }
-       ]
-      },
-      {
-       "sector_id": "3",
-       "sector_name": "体育运动2",
-       "sector_tags": [
-         {
-           "tag_id": "7",
-           "tag_name": "体育媒体及社区2"
-         },
-         {
-           "tag_id": "90",
-           "tag_name": "体育用品及装备6"
-         }
-       ]
-      }
-	]
-}
-
 var SectorsTags = {
-  data_source: [],
+	// json数据源
+	data_source: null,
 	init: function(data){
-       this.data_source = data["result"];
+		  //  初始化进入data_source
+			 this.data_source = data;
        for(var i = 0; i < this.data_source.length; i++){
        	  var sector = this.data_source[i];
        	  var sector_item = "<span class='filter-li'><span id='sector_id_"+ sector["sector_id"]+ "' class='sector'>" + sector["sector_name"] + "</span></span>";
@@ -89,9 +20,10 @@ var SectorsTags = {
        	    $("#tags_div_" + sector["sector_id"]).append(tag_item);
        	  }
        }
-       this.event_trigger();
+       this.binds();
 	},
-  event_trigger: function(){
+  binds: function(){
+		  var self = this;
       // 展开功能
         $(".expand-li").on("click",function(){
           $(this).parent().prev().removeClass("content");
@@ -110,7 +42,7 @@ var SectorsTags = {
           $(this).addClass("selected");
           $(this).after("<span class='delete-icon'></span>")
           // 插入选中标签显示栏
-          var selected_tag = "<span class='selected-tag' id='tag_" + $(this).attr("id") + "'><span class='tag tag-content'>" + $(this).html() + 
+          var selected_tag = "<span class='selected-tag' id='tag_" + $(this).attr("id") + "'><span class='tag tag-content'>" + $(this).html() +
                               "</span><span class='tag cancel-icon'>&times;</span></span>";
           $(".selected_tags .content").append(selected_tag);
         }
@@ -131,8 +63,8 @@ var SectorsTags = {
          $("#" + tag_id).remove();
         // 如果是行业标签需要清除其所有子项的选中状态 包括子项的选中标签
          if($(this).prev().hasClass("sector")){
-            for(var i = 0; i < SectorsTags["data_source"].length; i++){
-              var sector_item = SectorsTags["data_source"][i];
+            for(var i = 0; i < self.data_source.length; i++){
+              var sector_item = self.data_source[i];
               if(sector_item["sector_id"] == sector_id){
                  var sector_tags = sector_item["sector_tags"];
                  for(var j = 0; j < sector_tags.length; j++ ){
@@ -146,7 +78,7 @@ var SectorsTags = {
                  break;
               }
             }
-         } 
+         }
          $(this).remove();
       });
      // 通过选中标签撤销
@@ -156,5 +88,8 @@ var SectorsTags = {
         $(this).parent().remove();
      });
   }
-}
-SectorsTags.init(sectors_tags_data);
+};
+$(document).ready(function(){
+	// sectors_tags_data是从数据js文件中引入进来的
+	SectorsTags.init(sectors_tags_data["result"]);
+});
